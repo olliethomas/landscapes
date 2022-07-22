@@ -1,0 +1,50 @@
+name: Test
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # Service containers to run with `container-job`
+    services:
+      postgres: # Label used to access the service container
+        image: postgres # Docker Hub image
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+        env:
+          POSTGRES_PASSWORD: postgres # Provide the password for postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Ruby version specified in `.ruby-version`
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Install required apt packages
+        run: |
+          sudo apt-get -y install libpq-dev
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      - name: Install dependencies
+        run: |
+          yarn --frozen-lockfile
+      - name: Run Tests
+        run: |
+          bundle exec rails db:setup
+        env:
+          # The hostname used to communicate with the PostgreSQL service container
+          POSTGRES_HOST: postgres
+          # The default PostgreSQL port
+          POSTGRES_PORT: 5432
+          RAILS_ENV: test
