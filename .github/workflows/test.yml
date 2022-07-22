@@ -1,36 +1,57 @@
-name: Test
-
-on: [push]
-
+# This workflow uses actions that are not certified by GitHub.  They are
+# provided by a third-party and are governed by separate terms of service,
+# privacy policy, and support documentation.
+#
+# This workflow will install a prebuilt Ruby version, install dependencies, and
+# run tests and linters.
+name: "Ruby on Rails CI"
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-    # Service containers to run with `container-job`
     services:
-      postgres: # Label used to access the service container
-        image: postgres # Docker Hub image
+      postgres:
+        image: postgres:11-alpine
         ports:
-          # Maps tcp port 5432 on service container to the host
-          - 5432:5432
+          - "5432:5432"
         env:
-          POSTGRES_PASSWORD: postgres # Provide the password for postgres
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready 
           --health-interval 10s 
           --health-timeout 5s 
           --health-retries 5
-
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
-      - name: Install Ruby version specified in `.ruby-version`
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
+      # Add or replace dependency steps here
       - name: Install required apt packages
         run: |
           sudo apt-get -y install libpq-dev
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@08245253a76fa4d1e459b7809579c62bd9eb718a # v1.111
+        with:
+          bundler-cache: true
+      # Add or replace database setup steps here
+      - name: Set up database schema
+        run: bin/rails db:setup #db:schema:load
+      # Add or replace test runners here
+#      - name: Run tests
+#        run: bin/rake
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
@@ -39,12 +60,3 @@ jobs:
       - name: Install dependencies
         run: |
           yarn --frozen-lockfile
-      - name: Run Tests
-        run: |
-          bundle exec rails db:setup
-        env:
-          # The hostname used to communicate with the PostgreSQL service container
-          POSTGRES_HOST: postgres
-          # The default PostgreSQL port
-          POSTGRES_PORT: 5432
-          RAILS_ENV: test
