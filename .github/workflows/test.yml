@@ -1,18 +1,7 @@
-# This workflow uses actions that are not certified by GitHub.  They are
-# provided by a third-party and are governed by separate terms of service,
-# privacy policy, and support documentation.
-#
-# This workflow will install a prebuilt Ruby version, install dependencies, and
-# run tests and linters.
-name: "Ruby on Rails CI"
+name: "Landscapes CI"
 on: [push]
-#on:
-#  push:
-#    branches: [ $default-branch ]
-#  pull_request:
-#    branches: [ $default-branch ]
 jobs:
-  rails-tests:
+  database:
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -46,21 +35,11 @@ jobs:
         run: bin/rails db:setup
       - name: Rails tests
         run: bin/rails test
-      - name: Use Node.js
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'yarn'
-      - name: Install dependencies
+      - name: Install Node dependencies
         run: |
           yarn --frozen-lockfile
-#      - name: Start rails server
-#        uses: ./
-#        with:
-#          start: |
-#            bin/webpack-dev-server
-#            bin/rails server
-#          wait-on: 'http://localhost:3000'
-#      - name: End to End
-#        run: |
-#          yarn playwright tests
