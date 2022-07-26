@@ -43,3 +43,15 @@ jobs:
       - name: Install Node dependencies
         run: |
           yarn --frozen-lockfile
+      - name: Webpack
+        run: bin/webpack
+      - name: Start Servers
+        uses: ./
+        with:
+          build: npm run build
+          # single start command per line
+          start: |
+            bin/rails serve
+          wait-on: 'http://localhost:3000'
+      - name: End-to-End Tests
+        run: yarn playwright test
