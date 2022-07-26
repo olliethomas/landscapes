@@ -45,11 +45,9 @@ jobs:
           yarn --frozen-lockfile
       - name: Webpack
         run: bin/webpack
-      - name: Start Servers
-        uses: ./
-        with:
-          start: |
-            bin/rails server
-          wait-on: 'http://localhost:3000'
       - name: End-to-End Tests
-        run: yarn playwright test
+        run: |
+          npx playwright install-deps &&
+          bin/rails server &
+          sleep 5 &&
+          yarn playwright test
