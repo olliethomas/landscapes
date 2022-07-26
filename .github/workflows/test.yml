@@ -60,7 +60,7 @@ jobs:
           libhyphen0 \
           libevdev2 \
           libgles2 \
-          libx264-152
+          libx264-155
           yarn add playwright
       - name: Run End to End tests
         run: |
