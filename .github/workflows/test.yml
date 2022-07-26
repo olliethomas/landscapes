@@ -47,7 +47,4 @@ jobs:
         run: bin/webpack
       - name: End-to-End Tests
         run: |
-          npx playwright install-deps &&
-          bin/rails server &
-          sleep 5 &&
           yarn playwright test
