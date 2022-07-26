@@ -47,22 +47,12 @@ jobs:
         run: bin/webpack
       - name: Install Playwright
         run: |
-          sudo apt-get -y install libegl1 
-          sudo apt-get -y install libopus0 
-          sudo apt-get -y install libopengl0 
-          sudo apt-get -y install libwoff1 
-          sudo apt-get -y install libharfbuzz-icu0 
-          sudo apt-get -y install libgst7 
-          sudo apt-get -y install libopenjp2-7 
-          sudo apt-get -y install libwebpdemux2 
-          sudo apt-get -y install libenchant-2-2 
-          sudo apt-get -y install libhyphen0 
-          sudo apt-get -y install libevdev2 
-          sudo apt-get -y install libgles2 
-          sudo apt-get -y install libx264-155 
-          sudo apt-get -y install libgstreamer1.0-0 
-          sudo apt-get -y install libgstreamer-gl1.0-0  
-          sudo apt-get -y install libenchant1c2a
+          sudo apt-get -y install libegl1 \
+          libopus0 libopengl0 libwoff1 libharfbuzz-icu0 \ 
+          libgst7 libopenjp2-7 libwebpdemux2 libenchant-2-2 \ 
+          libhyphen0 libevdev2 libgles2 libx264-155 
+          sudo apt-get -y install libgstreamer1.0-0 \ 
+          libgstreamer-gl1.0-0 libenchant1c2a
           yarn add playwright
       - name: Run End to End tests
         run: |
