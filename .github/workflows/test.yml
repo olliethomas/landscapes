@@ -54,13 +54,13 @@ jobs:
       - name: Install dependencies
         run: |
           yarn --frozen-lockfile
-      - name: Start rails server
-        uses: ./
-        with:
-          start: |
-            bin/webpack-dev-server
-            bin/rails server
-          wait-on: 'http://localhost:3000'
-      - name: End to End
-        run: |
-          yarn playwright tests
+#      - name: Start rails server
+#        uses: ./
+#        with:
+#          start: |
+#            bin/webpack-dev-server
+#            bin/rails server
+#          wait-on: 'http://localhost:3000'
+#      - name: End to End
+#        run: |
+#          yarn playwright tests
