@@ -46,8 +46,8 @@ jobs:
       - name: Webpack
         run: bin/webpack
       - name: Install Playwright
+        # Install Webkit dependencies. Seems to need installing in two steps.
         run: |
-#         Install Webkit dependencies. Seems to need installing in two steps.
           sudo apt-get -y install libegl1 libgles2 libopengl0 libwoff1 libharfbuzz-icu0 libopenjp2-7 libenchant1c2a
           sudo apt-get -y install libwebpdemux2 libenchant-2-2 libhyphen0 libevdev2 libx264-155 libopus0
           sudo apt-get -y install libgstreamer1.0-0 libgstreamer-gl1.0-0 libgst7
