@@ -47,7 +47,6 @@ jobs:
         run: bin/webpack
       - name: Install Playwright
         run: |
-          sudo apt-get -y install
           sudo apt-get -y install libegl1 
           sudo apt-get -y install libopus0 
           sudo apt-get -y install libopengl0 
