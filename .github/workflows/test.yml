@@ -47,10 +47,9 @@ jobs:
         run: bin/webpack
       - name: Install Playwright
         run: |
-          npm ci
           npx playwright install --with-deps
       - name: Run your tests
-        run: npm test
+        run: npx playwright test
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v2
