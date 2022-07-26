@@ -47,4 +47,5 @@ jobs:
         run: bin/webpack
       - name: End-to-End Tests
         run: |
+          yarn install playwright
           yarn playwright test
