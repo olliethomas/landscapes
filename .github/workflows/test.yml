@@ -48,26 +48,19 @@ jobs:
       - name: Install Playwright
         run: |
           sudo apt-get -y install \
-          libEGL \
-          libopus \
-          libOpenGL \
-          libwoff2dec \
-          libharfbuzz-icu \
-          libgstapp-1.0 \
-          libgstpbutils-1.0 \
-          libgstaudio-1.0 \
-          libgsttag-1.0 \
-          libgstvideo-1.0 \
-          libgstgl-1.0 \
-          libgstfft-1.0 \
-          libopenjp2 \
-          libwebpdemux \
-          libenchant \
-          libhyphen \
-          libevdev \
-          libgstallocators-1.0 \
-          libGLESv2 \
-          libx264
+          libegl1 \
+          libopus0 \
+          libopengl0 \
+          libwoff1 \
+          libharfbuzz-icu0 \
+          libgst7 \
+          libopenjp2-7 \
+          libwebpdemux2 \
+          libenchant-2-2 \
+          libhyphen0 \
+          libevdev2 \
+          libgles2 \
+          libx264-163
           yarn add playwright
       - name: Run End to End tests
         run: |
