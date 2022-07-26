@@ -48,8 +48,6 @@ jobs:
       - name: Start Servers
         uses: ./
         with:
-          build: npm run build
-          # single start command per line
           start: |
             bin/rails server
           wait-on: 'http://localhost:3000'
