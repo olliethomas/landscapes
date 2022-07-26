@@ -60,7 +60,9 @@ jobs:
           libhyphen0 \
           libevdev2 \
           libgles2 \
-          libx264-155
+          libx264-155 \
+          libgstreamer1.0-0 \
+          libgstreamer-plugins-good1.0-0
           yarn add playwright
       - name: Run End to End tests
         run: |
