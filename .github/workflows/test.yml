@@ -61,6 +61,7 @@ jobs:
           libevdev2 \
           libgles2 \
           libx264-155 \
+          libgstreamer1.0-0 \
           libgstreamer-gl1.0-0 \ 
           libenchant1c2a
           yarn add playwright
