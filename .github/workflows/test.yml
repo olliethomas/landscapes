@@ -55,6 +55,7 @@ jobs:
         run: |
           yarn --frozen-lockfile
       - name: Start rails server
+        uses: ./
         with:
           start: |
             bin/webpack-dev-server
