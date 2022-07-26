@@ -45,7 +45,15 @@ jobs:
           yarn --frozen-lockfile
       - name: Webpack
         run: bin/webpack
-      - name: End-to-End Tests
+      - name: Install Playwright
         run: |
-          yarn add playwright
-          yarn playwright test
+          npm ci
+          npx playwright install --with-deps
+      - name: Run your tests
+        run: npm test
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: playwright-report
+          path: playwright-report
